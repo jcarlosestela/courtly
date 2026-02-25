@@ -21,6 +21,7 @@
 - [ ] `manual` provider compatibility preserved.
 - [ ] Error and degraded path covered.
 - [ ] Docs updated if contracts changed.
+- [ ] `docs/10-implementation-checklist.md` updated for current session progress.
 
 ## Implementation priority
 1. Complete official DM adapter.

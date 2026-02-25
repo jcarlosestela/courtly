@@ -24,6 +24,7 @@ The key technical objective is to keep Baileys decoupled so it can be replaced b
 - Do not remove `manual-group-adapter`.
 - Do not hardcode secrets or tokens.
 - Do not change port contracts without updating docs.
+- Keep `docs/10-implementation-checklist.md` updated with session progress.
 
 ## Implementation style
 - Strict TypeScript.

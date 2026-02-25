@@ -1,13 +1,18 @@
 # 10 - Implementation Checklist (Kickoff)
 
+## Maintenance rule (mandatory)
+- Keep this file updated at the end of every implementation session.
+- Mark completed items immediately.
+- Add new checklist items when scope changes.
+
 ## Phase 0 - Environment
-- [ ] Install dependencies (`npm install`).
-- [ ] Create `.env` with:
-  - [ ] `PORT=3000`
-  - [ ] `GROUP_AUTOMATION_ENABLED=true`
-  - [ ] `GROUP_PROVIDER=baileys`
-- [ ] Run locally (`npm run dev`).
-- [ ] Verify `GET /health`.
+- [x] Install dependencies (`npm install`).
+- [x] Create `.env` with:
+  - [x] `PORT=3000`
+  - [x] `GROUP_AUTOMATION_ENABLED=true`
+  - [x] `GROUP_PROVIDER=baileys`
+- [x] Run locally (`npm run dev`).
+- [x] Verify `GET /health`.
 
 ## Phase 1 - Official DM channel
 - [ ] Implement `WaCloudApiDirectAdapter.sendDirect` with real Cloud API.
