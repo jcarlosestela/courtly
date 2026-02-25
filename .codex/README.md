@@ -1,20 +1,20 @@
 # Codex Context Pack
 
-Este directorio guarda contexto persistente para futuras sesiones con agentes.
+This directory stores persistent context for future agent sessions.
 
-## Lee esto al inicio de cada sesion
+## Read this at the start of each session
 1. `./.codex/PROJECT_CONTEXT.md`
 2. `./.codex/IMPLEMENTATION_RULES.md`
 3. `./docs/10-implementation-checklist.md`
 4. `./docs/11-technical-skeleton.md`
 
-## Estado actual
-- Proyecto en fase de esqueleto tecnico.
-- Arquitectura hibrida definida:
-  - DM (1:1): WhatsApp Business Cloud API oficial.
-  - Grupos: Baileys desacoplado por puerto/adaptador.
-- Kill switch de grupos activo por configuracion.
+## Current state
+- Project is in technical skeleton phase.
+- Hybrid architecture is defined:
+  - DM (1:1): official WhatsApp Business Cloud API.
+  - Groups: Baileys decoupled via port/adapter.
+- Group kill switch is available by configuration.
 
-## Config clave
+## Key config
 - `GROUP_AUTOMATION_ENABLED=true|false`
 - `GROUP_PROVIDER=baileys|official|manual`

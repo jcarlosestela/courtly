@@ -1,26 +1,26 @@
 # 07 - Operations Runbook
 
-## Monitorizacion minima
-- Errores por endpoint.
-- Latencia p95 de webhook e intent parsing.
-- Cola de escalados abiertos.
-- Ratio de baja confianza IA en intents criticos.
+## Minimum monitoring
+- Error rate by endpoint.
+- p95 latency for webhook and intent parsing.
+- Number of open escalations.
+- Low-confidence ratio for critical intents.
 
-## Alarmas
-- Uptime por debajo de 99% (horario club).
-- Fallos webhook consecutivos > umbral.
-- Escalados abiertos > umbral durante > 30 min.
+## Alerts
+- Uptime below 99% in operating hours.
+- Consecutive webhook failures above threshold.
+- Open escalations above threshold for more than 30 minutes.
 
-## Modo degradado
-Si falla IA o integracion externa:
-1. Desactivar ejecucion automatica.
-2. Mantener recepcion y logging de solicitudes.
-3. Escalar todo a staff.
-4. Notificar estado a staff.
+## Degraded mode
+If AI or external integration fails:
+1. Disable risky automated execution.
+2. Keep receiving and logging requests.
+3. Escalate all critical actions to staff.
+4. Notify staff status.
 
-## Resolucion de incidente
-1. Identificar alcance (jugadores, partidos, staff).
-2. Congelar automatismos de riesgo.
-3. Corregir estado inconsistente.
-4. Auditar acciones tomadas.
-5. Cerrar con postmortem breve.
+## Incident handling
+1. Identify scope (players, matches, staff impact).
+2. Freeze risky automations.
+3. Fix inconsistent state.
+4. Audit all corrective actions.
+5. Close with short postmortem.

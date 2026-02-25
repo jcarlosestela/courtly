@@ -1,6 +1,6 @@
 # 04 - Data Model (MVP)
 
-## Entidades
+## Entities
 
 ### players
 - `id` (uuid)
@@ -62,7 +62,7 @@
 - `requested_at`, `resolved_at`
 - `notes` (string, nullable)
 
-## Indices recomendados
+## Recommended indexes
 - `players(wa_phone)` unique
 - `matches(status, start_at)`
 - `registrations(match_id, status, position)`

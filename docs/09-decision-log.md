@@ -1,21 +1,21 @@
 # 09 - Decision Log
 
-## Decisiones cerradas
-1. Idioma de trabajo del proyecto: espanol.
-2. MVP centrado en gestion de partidos, no competiciones completas.
-3. Staff prevalece siempre.
-4. Cancelaciones solo con aprobacion staff.
-5. Reemplazo desde waitlist con timeout 30 min.
-6. Backend TypeScript + PostgreSQL.
-7. Un club piloto primero.
-8. Presupuesto objetivo mensual < 200 EUR.
-9. Implementar borrado de datos en MVP.
-10. Estrategia hibrida cerrada:
-   - DM con WA Business Cloud API oficial.
-   - Grupos con Baileys.
-11. Kill switch obligatorio para apagar Baileys sin parar la operacion del club.
+## Finalized decisions
+1. Project working language: English documentation.
+2. MVP focuses on match management, not full competition automation.
+3. Staff always has final authority.
+4. Cancellations require staff approval.
+5. Waitlist replacement timeout is 30 minutes.
+6. Backend is TypeScript + PostgreSQL.
+7. Start with one pilot club.
+8. Target monthly budget under 200 EUR.
+9. Data deletion included in MVP.
+10. Hybrid channel strategy:
+   - DM via official WA Business Cloud API.
+   - Groups via Baileys.
+11. Mandatory kill switch to disable Baileys without stopping club operations.
 
-## Riesgos abiertos
-1. Riesgo de bloqueo/restriccion en capa no oficial (Baileys).
-2. Cambios de protocolo en WhatsApp Web que rompan integracion.
-3. Coste operativo de mantener sesiones y relogins.
+## Open risks
+1. Ban/restriction risk on non-official group layer (Baileys).
+2. WhatsApp Web protocol changes that can break integration.
+3. Operational cost of session maintenance and relogin handling.

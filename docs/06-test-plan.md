@@ -1,27 +1,27 @@
 # 06 - Test Plan
 
-## Criterios de aceptacion
-- Ninguna accion critica se ejecuta con confianza baja.
-- Nunca hay doble asignacion de la ultima plaza.
-- Waitlist FIFO se respeta en todas las transiciones.
-- Todas las acciones criticas dejan traza en `audit_log`.
+## Acceptance criteria
+- No critical action executes with low confidence.
+- No double allocation of the last slot.
+- FIFO waitlist ordering is preserved.
+- Every critical action is logged in `audit_log`.
 
-## Escenarios funcionales
-1. Alta normal de jugador a partido abierto.
-2. Partido lleno -> entrada en waitlist.
-3. Cancelacion aprobada por staff -> oferta a waitlist.
-4. Timeout de oferta (30 min) -> escalado.
-5. Escalado manual por staff.
-6. Borrado de datos solicitado y completado.
+## Functional scenarios
+1. Standard player registration to open match.
+2. Full match => waitlist entry.
+3. Staff-approved cancellation => waitlist offer.
+4. Offer timeout (30 min) => escalation.
+5. Manual staff escalation.
+6. Data deletion request and completion.
 
-## Escenarios de robustez
-1. Webhook duplicado (idempotencia).
-2. Dos usuarios compiten por ultima plaza (concurrencia).
-3. Proveedor IA no responde (degradacion segura).
-4. DB temporalmente no disponible (retry controlado).
+## Robustness scenarios
+1. Duplicate webhook event (idempotency).
+2. Two users race for last slot (concurrency).
+3. AI provider timeout/failure (safe degradation).
+4. Temporary DB outage (controlled retry behavior).
 
 ## Shadow mode
-Duracion: 1 semana.
-- El bot recomienda y registra.
-- El staff ejecuta decision final.
-- Se comparan discrepancias para ajustar reglas.
+Duration: 1 week.
+- Bot suggests and logs.
+- Staff executes final decision.
+- Compare discrepancies to refine rules.

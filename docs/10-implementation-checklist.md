@@ -1,41 +1,41 @@
-# 10 - Checklist de Implementacion (arranque)
+# 10 - Implementation Checklist (Kickoff)
 
-## Fase 0 - Entorno
-- [ ] Instalar dependencias (`npm install`).
-- [ ] Crear `.env` inicial con:
+## Phase 0 - Environment
+- [ ] Install dependencies (`npm install`).
+- [ ] Create `.env` with:
   - [ ] `PORT=3000`
   - [ ] `GROUP_AUTOMATION_ENABLED=true`
   - [ ] `GROUP_PROVIDER=baileys`
-- [ ] Arrancar en local (`npm run dev`).
-- [ ] Verificar `GET /health`.
+- [ ] Run locally (`npm run dev`).
+- [ ] Verify `GET /health`.
 
-## Fase 1 - Canal oficial DM
-- [ ] Implementar `WaCloudApiDirectAdapter.sendDirect` contra Cloud API real.
-- [ ] Implementar parse real de webhook en `parseWebhook`.
-- [ ] Validar idempotencia por `message_id`.
-- [ ] Prueba minima DM con 2-3 usuarios.
+## Phase 1 - Official DM channel
+- [ ] Implement `WaCloudApiDirectAdapter.sendDirect` with real Cloud API.
+- [ ] Implement real webhook mapping in `parseWebhook`.
+- [ ] Validate idempotency by `message_id`.
+- [ ] Run minimum DM test with 2-3 users.
 
-## Fase 2 - Canal grupos con Baileys
-- [ ] Implementar conexion/sesion real en `BaileysGroupAdapter`.
-- [ ] Implementar parse real de eventos de grupo.
-- [ ] Limitar grupos permitidos por lista blanca.
-- [ ] Configurar limites de envio por grupo y por minuto.
-- [ ] Verificar kill switch (`GROUP_AUTOMATION_ENABLED=false`) sin caida del servicio.
+## Phase 2 - Baileys group channel
+- [ ] Implement real connection/session handling in `BaileysGroupAdapter`.
+- [ ] Implement real group event parsing.
+- [ ] Restrict allowed groups using allowlist.
+- [ ] Add rate limits per group and per minute.
+- [ ] Verify kill switch (`GROUP_AUTOMATION_ENABLED=false`) without service outage.
 
-## Fase 3 - Dominio y negocio
-- [ ] Reemplazar respuestas de eco por comandos reales (join, waitlist, cancel).
-- [ ] Añadir persistencia PostgreSQL (players, matches, registrations, escalations, audit).
-- [ ] Añadir trazabilidad completa de acciones criticas.
-- [ ] Añadir escalado a staff para baja confianza/conflictos.
+## Phase 3 - Domain and business logic
+- [ ] Replace echo behavior with real commands (join, waitlist, cancel).
+- [ ] Add PostgreSQL persistence (players, matches, registrations, escalations, audit).
+- [ ] Add complete audit trail for critical actions.
+- [ ] Add staff escalation for low confidence/conflicts.
 
-## Fase 4 - Seguridad y operacion
-- [ ] Firma/verificacion de webhook oficial.
-- [ ] Secretos fuera de repo.
-- [ ] Logging estructurado + correlacion de eventos.
-- [ ] Alertas: caida de providers, errores de sesion Baileys, backlog de escalados.
+## Phase 4 - Security and operations
+- [ ] Verify official webhook signatures.
+- [ ] Keep secrets out of repository.
+- [ ] Add structured logs + request/event correlation.
+- [ ] Add alerts: provider failures, Baileys session errors, escalation backlog.
 
-## Fase 5 - Preparar sustitucion de Baileys
-- [ ] Mantener `GroupMessagingPort` como contrato unico.
-- [ ] Evitar dependencias de Baileys fuera de `wa-groups-baileys-adapter`.
-- [ ] Implementar `OfficialGroupAdapter` cuando exista API viable.
-- [ ] Hacer prueba de cambio de provider via config (`GROUP_PROVIDER=official`) sin tocar dominio.
+## Phase 5 - Baileys replacement readiness
+- [ ] Keep `GroupMessagingPort` as the single contract.
+- [ ] Avoid Baileys dependencies outside `wa-groups-baileys-adapter`.
+- [ ] Implement `OfficialGroupAdapter` when viable.
+- [ ] Verify provider switch via config (`GROUP_PROVIDER=official`) without touching domain logic.

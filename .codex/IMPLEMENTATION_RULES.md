@@ -1,30 +1,30 @@
-# Implementation Rules (para agentes)
+# Implementation Rules (for agents)
 
-## Principios de arquitectura
-1. Ports and adapters obligatorio.
-2. Dominio agnostico de proveedores.
-3. Feature flags y kill switch antes de automatizar.
-4. Fallback manual siempre disponible.
+## Architecture principles
+1. Ports and adapters are mandatory.
+2. Domain layer must stay provider-agnostic.
+3. Feature flags and kill switch before automation.
+4. Manual fallback must always exist.
 
-## Regla anti-acoplamiento
-- Prohibido importar Baileys fuera de `src/infrastructure/adapters/groups/baileys-group-adapter.ts` (o submodulos directos de ese adapter).
+## Anti-coupling rule
+- Do not import Baileys outside `src/infrastructure/adapters/groups/baileys-group-adapter.ts` (or files directly under that adapter module).
 
-## Convenciones de codigo
-- TypeScript estricto (`strict: true`).
-- Errores explicitos con mensajes accionables.
-- Logs estructurados para eventos criticos.
-- Idempotencia en webhooks por `message_id/event_id`.
+## Coding conventions
+- Strict TypeScript (`strict: true`).
+- Explicit errors with actionable messages.
+- Structured logs for critical events.
+- Webhook idempotency by `message_id/event_id`.
 
-## Checklist minimo por PR/cambio
-- [ ] No rompe `GroupMessagingPort`.
-- [ ] Respeta kill switch.
-- [ ] Mantiene compatibilidad con `manual` provider.
-- [ ] Incluye caso de error y degradacion.
-- [ ] Actualiza docs si cambia contrato.
+## Minimum checklist per change
+- [ ] `GroupMessagingPort` contract preserved.
+- [ ] Kill switch behavior preserved.
+- [ ] `manual` provider compatibility preserved.
+- [ ] Error and degraded path covered.
+- [ ] Docs updated if contracts changed.
 
-## Prioridad de implementacion
-1. Completar adapter DM oficial.
-2. Completar adapter Baileys real.
-3. Persistencia PostgreSQL + auditoria.
-4. Casos de uso reales (join/waitlist/cancel).
-5. Alertas y observabilidad.
+## Implementation priority
+1. Complete official DM adapter.
+2. Complete Baileys adapter.
+3. PostgreSQL persistence + audit.
+4. Real use cases (join/waitlist/cancel).
+5. Alerts and observability.

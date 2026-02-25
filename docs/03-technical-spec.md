@@ -1,40 +1,40 @@
 # 03 - Technical Spec
 
-## Stack MVP
+## MVP stack
 - Backend: Node.js + TypeScript.
 - DB: PostgreSQL.
-- Infra: cloud simple de bajo coste.
-- IA: proveedor externo LLM con capa de abstraccion.
-- Adaptadores de canal:
-  - Oficial DM: WhatsApp Business Cloud API.
-  - Grupos: Baileys (aislado en modulo/servicio separado).
+- Infrastructure: low-cost cloud setup.
+- AI: external LLM provider with abstraction layer.
+- Channel adapters:
+  - Official DM: WhatsApp Business Cloud API.
+  - Groups: Baileys (isolated in a dedicated adapter/module).
 
-## Arquitectura logica
-- `wa-webhook`: recibe eventos de WhatsApp.
-- `wa-official-adapter`: envia/recibe mensajeria directa oficial.
-- `wa-groups-baileys-adapter`: lectura/escritura de grupos (no oficial).
-- `intent-service`: interpreta texto -> comandos internos.
-- `orchestrator`: aplica reglas de negocio.
-- `match-service`: partidos, inscripciones, waitlist.
-- `staff-escalation`: cola de incidencias para staff.
-- `audit-service`: trazabilidad completa.
+## Logical architecture
+- `wa-webhook`: receives WhatsApp events.
+- `wa-official-adapter`: sends/receives official direct messages.
+- `wa-groups-baileys-adapter`: reads/writes group messages (non-official).
+- `intent-service`: maps text to internal commands.
+- `orchestrator`: applies business rules.
+- `match-service`: matches, registrations, waitlist.
+- `staff-escalation`: escalation queue for staff.
+- `audit-service`: full traceability.
 
-## No funcionales
-- Uptime objetivo: 99% en horario del club.
-- Idempotencia en webhooks (clave por message/event id).
-- Logs estructurados y auditables.
-- Kill switch para grupos: bandera de feature para apagar Baileys en caliente.
-- Degradacion segura: con Baileys apagado, el staff continua gestion manual de grupos.
+## Non-functional requirements
+- 99% uptime during club operating hours.
+- Webhook idempotency by message/event id.
+- Structured, auditable logs.
+- Group kill switch via feature flag.
+- Safe degradation: with Baileys disabled, staff runs groups manually.
 
-## Estrategia IA segura
-- Clasificar intent + extraer entidades.
-- Validar contra esquema estricto.
-- Confirmacion guiada en acciones criticas.
-- Si confianza baja: no ejecutar y escalar.
+## Safe AI strategy
+- Intent classification + entity extraction.
+- Strict schema validation.
+- Guided confirmation for critical actions.
+- Low confidence => do not execute, escalate.
 
-## Guardrails para Baileys
-- Limitar automatizacion a grupos del club con consentimiento explicito.
-- Restringir volumen y frecuencia de envio para minimizar riesgo.
-- Separar credenciales/sesiones de Baileys del canal oficial.
-- Monitorear bloqueos, relogins y errores de sesion.
-- Plan de contingencia: apagar Baileys y continuar operacion manual sin downtime.
+## Baileys guardrails
+- Automate only club groups with explicit consent.
+- Restrict sending volume and frequency.
+- Keep Baileys sessions/credentials isolated from official channel.
+- Monitor bans, relogins, and session errors.
+- Contingency plan: disable Baileys and continue manual operations.

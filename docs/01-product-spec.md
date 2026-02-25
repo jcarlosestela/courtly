@@ -1,40 +1,40 @@
 # 01 - Product Spec
 
 ## Vision
-Reducir ruido y carga operativa en la gestion de partidos abiertos de un club de padel, aprovechando WhatsApp como canal principal de interaccion.
+Reduce communication noise and staff operational load for open padel match coordination, using WhatsApp as the main interaction channel.
 
-## Problema
-Hoy la coordinacion se hace manualmente en grupos de WhatsApp por nivel. Esto genera:
-- Mensajes dispersos y poca trazabilidad.
-- Sobrecarga en staff para completar plazas y gestionar cambios.
-- Riesgo de errores operativos (sobreventa, confusiones, bajas tardias mal resueltas).
+## Problem
+Match coordination is currently manual in WhatsApp groups by level. This creates:
+- Scattered messages and low traceability.
+- High staff effort to fill spots and manage changes.
+- Risk of operational errors (overbooking, confusion, late cancellations).
 
-## Objetivo del MVP
-Conseguir en un club piloto:
-- Reduccion >= 30% del tiempo diario de staff dedicado a coordinacion.
-- Cero errores operativos graves atribuibles al sistema.
+## MVP goal
+For one pilot club:
+- Reduce daily staff coordination time by at least 30%.
+- Zero severe system-caused operational incidents.
 
-## Usuarios
-- Jugador: consulta partidos y solicita inscripcion.
-- Staff: publica, valida excepciones, cancela y resuelve escalados.
+## Users
+- Player: checks availability and asks to join matches.
+- Staff: publishes matches, validates exceptions, cancels, and resolves escalations.
 
-## Alcance MVP
-- Gestion de partidos abiertos de ultima hora.
-- Lista de espera FIFO.
-- Reemplazo semiautomatico tras cancelacion aprobada por staff.
-- Escalado a staff si hay baja confianza del bot o conflicto.
-- Estrategia de canal hibrida:
-  - Mensajeria directa (1:1) via WhatsApp Business Cloud API oficial.
-  - Interaccion en grupos via Baileys (capa no oficial) con riesgo controlado.
+## MVP scope
+- Last-minute open match management.
+- FIFO waitlist.
+- Semi-automatic replacement after staff-approved cancellation.
+- Staff escalation for low confidence or rule conflicts.
+- Hybrid channel strategy:
+  - 1:1 direct messaging via official WhatsApp Business Cloud API.
+  - Group interaction via Baileys (non-official), risk-controlled.
 
-## Fuera de alcance MVP
-- Integracion con sistema de reservas del club.
-- Panel web de administracion.
-- Multi-club.
-- Automatizacion completa de competiciones tipo "Rey de pista/Pool".
+## Out of MVP scope
+- Club booking platform integration.
+- Web admin panel.
+- Multi-club support.
+- Full automation of "King of the Court/Pool" competitions.
 
-## KPI norte
-- Tiempo staff dedicado/dia.
+## North star KPI
+- Staff coordination time per day.
 
-## Criterio de fracaso temprano
-- No poder operar DM oficial de forma estable, o no poder desactivar Baileys sin romper la operacion manual del club.
+## Early failure criterion
+- Inability to run stable official DM, or inability to disable Baileys without breaking manual club operations.

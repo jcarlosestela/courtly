@@ -1,59 +1,59 @@
-# 08 - WA Business: Onboarding y Prueba Minima (2-3 personas)
+# 08 - WA Business: Onboarding and Minimum PoC (2-3 people)
 
-## Objetivo
-Tener una prueba real y rapida del modelo hibrido:
-- DM (1:1) con API oficial.
-- Grupos con Baileys.
+## Goal
+Run a fast, real-world validation of the hybrid model:
+- DM (1:1) through official API.
+- Groups through Baileys.
 
-## Referencias oficiales (Meta)
+## Official references (Meta)
 - https://developers.facebook.com/docs/whatsapp/about-the-platform/
 - https://developers.facebook.com/docs/whatsapp/cloud-api/
 - https://developers.facebook.com/docs/whatsapp/group-chat-api/
 - https://developers.facebook.com/docs/whatsapp/on-premises/compare/
 
-## Importante sobre grupos/canales
-- La mensajeria 1:1 en WhatsApp Business Platform (Cloud API) es estandar.
-- Si optas por Baileys para grupos, tratalo como capa de riesgo y no como base contractual del negocio.
-- Para canales, no asumas soporte API de producto hasta validacion explicita en tu tenant.
+## Important notes about groups/channels
+- 1:1 messaging in WhatsApp Business Platform (Cloud API) is standard.
+- If you use Baileys for groups, treat it as a risk-managed layer, not a contractual foundation.
+- For Channels, do not assume product API support until explicitly validated in your tenant.
 
-## Checklist de setup negocio (paso a paso)
-1. Crear o usar Business Manager (Meta Business).
-2. Verificar el negocio (documentacion legal de empresa/autonomo).
-3. Crear una app en Meta for Developers.
-4. Agregar producto WhatsApp a la app.
-5. Asociar un numero de telefono (ideal: numero dedicado al piloto).
-6. Configurar webhook (URL + verify token + suscripciones de eventos).
-7. Generar y guardar token de sistema (nunca usar tokens efimeros en pruebas largas).
-8. Definir y aprobar al menos 1 plantilla (por si necesitas iniciar conversacion fuera de ventana).
-9. Revisar politicas de mensajeria y calidad de numero.
+## Business setup checklist
+1. Create or reuse Meta Business Manager.
+2. Verify the business (company/sole trader legal docs).
+3. Create app in Meta for Developers.
+4. Add WhatsApp product to the app.
+5. Attach a dedicated pilot phone number.
+6. Configure webhook (URL + verify token + subscribed events).
+7. Generate and store system token (avoid short-lived tokens for longer tests).
+8. Approve at least one template (for out-of-window initiation).
+9. Review messaging policy and quality status.
 
-## Prueba minima recomendada (tu + 2 personas)
+## Minimum recommended test (you + 2 people)
 
-### Fase A - Sanidad 1:1 (obligatoria)
-1. Usuario A escribe al numero de negocio.
-2. Recibes webhook y respondes automaticamente.
-3. Usuario B repite.
-4. Verificas:
-- Recepcion y envio correcto.
-- Mapeo por telefono.
-- Logs de auditoria basicos.
+### Phase A - Mandatory 1:1 sanity check
+1. User A sends message to business number.
+2. System receives webhook and auto-replies.
+3. User B repeats.
+4. Validate:
+- Message reception and sending.
+- Phone identity mapping.
+- Basic audit logs.
 
-### Fase B - Validacion de grupos/canales (gate)
-1. Preparar cuenta/sesion de Baileys para grupo de prueba del club.
-2. Ejecutar una demo funcional real en entorno controlado:
-- Publicar mensaje de "partido abierto".
-- Leer respuesta de usuarios en grupo.
-- Confirmar inscripcion y trazabilidad en backend.
-3. Registrar evidencia:
-- Capturas de logs/eventos.
-- IDs de eventos.
-- Resultado de conmutar kill switch ON/OFF.
+### Phase B - Group gate validation
+1. Prepare Baileys session for pilot club test group.
+2. Run controlled real demo:
+- Publish "open match" message.
+- Read user group responses.
+- Confirm registration flow and backend traceability.
+3. Store evidence:
+- Log/event screenshots.
+- Event IDs.
+- Kill switch ON/OFF behavior result.
 
-## Criterio de aprobacion del gate
-Se aprueba solo si hay evidencia reproducible de:
-- DM oficial estable.
-- Grupos con Baileys estables para el piloto.
-- Apagado de Baileys sin romper operacion (fallback manual real).
+## Gate approval criteria
+Approved only if there is reproducible evidence of:
+- Stable official DM.
+- Stable Baileys group behavior for pilot.
+- Baileys can be disabled without breaking operations (real manual fallback).
 
-## Criterio de rechazo
-Si Baileys no es estable en la operacion real del club, no automatizar grupos.
+## Gate rejection criteria
+If Baileys is unstable in real operations, do not automate groups.
