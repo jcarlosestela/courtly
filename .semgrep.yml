@@ -1,0 +1,14 @@
+rules:
+  - id: no-eval-in-codebase
+    patterns:
+      - pattern: eval(...)
+    message: "Avoid eval due to code injection risk."
+    languages: [javascript, typescript]
+    severity: ERROR
+
+  - id: no-child-process-exec
+    patterns:
+      - pattern: child_process.exec(...)
+    message: "Prefer safer process execution patterns and sanitize inputs."
+    languages: [javascript, typescript]
+    severity: WARNING

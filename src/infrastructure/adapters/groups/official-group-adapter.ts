@@ -8,11 +8,13 @@ export class OfficialGroupAdapter implements GroupMessagingPort {
     return true;
   }
 
-  public async sendGroup(_message: OutgoingMessage): Promise<void> {
+  public async sendGroup(message: OutgoingMessage): Promise<void> {
+    void message;
     throw new Error("Official group adapter not implemented yet");
   }
 
-  public async parseGroupEvent(_payload: unknown): Promise<IncomingMessage[]> {
+  public async parseGroupEvent(payload: unknown): Promise<IncomingMessage[]> {
+    void payload;
     return [];
   }
 

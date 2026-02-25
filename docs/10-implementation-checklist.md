@@ -14,6 +14,16 @@
 - [x] Run locally (`npm run dev`).
 - [x] Verify `GET /health`.
 
+## Phase 0.1 - Quality and security baseline
+- [x] Add ESLint and TypeScript lint config.
+- [x] Add Prettier config.
+- [x] Add unit test framework (Vitest).
+- [x] Add coverage reporting and thresholds.
+- [x] Add dependency security audit command (`npm audit`).
+- [x] Add optional Semgrep and Gitleaks hooks (`scripts/security-check.sh`).
+- [x] Add quality/security documentation (`docs/12-quality-and-security.md`).
+- [x] Validate end-to-end verification pipeline (`npm run verify`).
+
 ## Phase 1 - Official DM channel
 - [ ] Implement `WaCloudApiDirectAdapter.sendDirect` with real Cloud API.
 - [ ] Implement real webhook mapping in `parseWebhook`.

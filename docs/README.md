@@ -14,6 +14,7 @@ This package keeps the project ready for future implementation sessions.
 9. `09-decision-log.md`
 10. `10-implementation-checklist.md`
 11. `11-technical-skeleton.md`
+12. `12-quality-and-security.md`
 
 ## Current status
 - Project is in technical skeleton phase.

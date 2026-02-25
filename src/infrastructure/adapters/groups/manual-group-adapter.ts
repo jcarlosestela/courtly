@@ -8,11 +8,13 @@ export class ManualGroupAdapter implements GroupMessagingPort {
     return false;
   }
 
-  public async sendGroup(_message: OutgoingMessage): Promise<void> {
+  public async sendGroup(message: OutgoingMessage): Promise<void> {
+    void message;
     throw new Error("Group automation disabled. Staff must handle groups manually.");
   }
 
-  public async parseGroupEvent(_payload: unknown): Promise<IncomingMessage[]> {
+  public async parseGroupEvent(payload: unknown): Promise<IncomingMessage[]> {
+    void payload;
     return [];
   }
 
