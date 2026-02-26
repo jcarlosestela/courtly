@@ -25,7 +25,15 @@ export function buildChannelAdapters(config: AppConfig): ChannelAdapters {
 
   switch (config.groupProvider) {
     case "baileys":
-      return { direct, groups: new BaileysGroupAdapter() };
+      return {
+        direct,
+        groups: new BaileysGroupAdapter({
+          allowedGroupIds: config.groupAllowlist,
+          rateLimitPerGroupPerMinute: config.groupRateLimitPerGroupPerMinute,
+          rateLimitGlobalPerMinute: config.groupRateLimitGlobalPerMinute,
+          sessionPath: config.baileysSessionPath
+        })
+      };
     case "official":
       return { direct, groups: new OfficialGroupAdapter() };
     case "manual":

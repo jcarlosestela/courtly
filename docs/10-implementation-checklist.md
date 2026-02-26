@@ -36,11 +36,12 @@
   - Local end-to-end DM validation completed with real tenant credentials (outbound + inbound via ngrok webhook).
 
 ## Phase 2 - Baileys group channel
-- [ ] Implement real connection/session handling in `BaileysGroupAdapter`.
-- [ ] Implement real group event parsing.
-- [ ] Restrict allowed groups using allowlist.
-- [ ] Add rate limits per group and per minute.
-- [ ] Verify kill switch (`GROUP_AUTOMATION_ENABLED=false`) without service outage.
+- [x] Implement real connection/session handling in `BaileysGroupAdapter`.
+- [x] Implement real group event parsing.
+- [x] Restrict allowed groups using allowlist.
+- [x] Add rate limits per group and per minute.
+- [x] Verify kill switch (`GROUP_AUTOMATION_ENABLED=false`) without service outage.
+  - Added tests for Baileys group parsing, allowlist/rate-limit enforcement, and service continuity with kill switch enabled.
 
 ## Phase 3 - Domain and business logic
 - [ ] Replace echo behavior with real commands (join, waitlist, cancel).

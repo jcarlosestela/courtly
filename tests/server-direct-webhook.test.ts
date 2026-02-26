@@ -10,6 +10,10 @@ const baseConfig: AppConfig = {
   nodeEnv: "test",
   groupAutomationEnabled: true,
   groupProvider: "manual",
+  groupAllowlist: [],
+  groupRateLimitPerGroupPerMinute: 20,
+  groupRateLimitGlobalPerMinute: 100,
+  baileysSessionPath: ".baileys-session",
   waCloudApiBaseUrl: "https://graph.facebook.com",
   waCloudApiVersion: "v22.0",
   waCloudPhoneNumberId: "123",
@@ -144,5 +148,58 @@ describe("server direct webhook", () => {
       );
       expect(failedResponse.status).toBe(403);
     });
+  });
+
+  it("keeps service up with group kill switch enabled", async () => {
+    const server = createHttpServer({
+      config: {
+        ...baseConfig,
+        groupAutomationEnabled: false,
+        groupProvider: "baileys"
+      }
+    });
+
+    await new Promise<void>((resolve) => server.listen(0, resolve));
+    const address = server.address() as AddressInfo;
+
+    try {
+      const healthResponse = await fetch(`http://127.0.0.1:${address.port}/health`);
+      expect(healthResponse.status).toBe(200);
+
+      await expect(healthResponse.json()).resolves.toMatchObject({
+        app: "ok",
+        config: {
+          groupAutomationEnabled: false,
+          groupProvider: "baileys"
+        },
+        providers: [{ provider: "wa-cloud-api", ok: true }, { provider: "manual-fallback", ok: true }]
+      });
+
+      const groupWebhookResponse = await fetch(
+        `http://127.0.0.1:${address.port}/webhooks/whatsapp/group`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: [] })
+        }
+      );
+
+      expect(groupWebhookResponse.status).toBe(200);
+      await expect(groupWebhookResponse.json()).resolves.toEqual({
+        accepted: 0,
+        provider: "manual-fallback"
+      });
+    } finally {
+      await new Promise<void>((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+
+          resolve();
+        });
+      });
+    }
   });
 });

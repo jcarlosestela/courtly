@@ -11,6 +11,10 @@ The skeleton separates business logic from channel providers so Baileys can be d
 Controlled by config:
 - `GROUP_AUTOMATION_ENABLED=true|false`
 - `GROUP_PROVIDER=baileys|official|manual`
+- `GROUP_ALLOWLIST=<group1@g.us,group2@g.us>`
+- `GROUP_RATE_LIMIT_PER_GROUP_PER_MINUTE=<number>`
+- `GROUP_RATE_LIMIT_GLOBAL_PER_MINUTE=<number>`
+- `BAILEYS_SESSION_PATH=.baileys-session`
 
 ## Kill switch
 If `GROUP_AUTOMATION_ENABLED=false`:
