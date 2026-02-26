@@ -3,6 +3,10 @@ export interface AppConfig {
   nodeEnv: string;
   groupAutomationEnabled: boolean;
   groupProvider: "baileys" | "official" | "manual";
+  groupAllowlist: string[];
+  groupRateLimitPerGroupPerMinute: number;
+  groupRateLimitGlobalPerMinute: number;
+  baileysSessionPath: string;
   waCloudApiBaseUrl: string;
   waCloudApiVersion: string;
   waCloudPhoneNumberId?: string;
@@ -22,12 +26,28 @@ function readNumber(value: string | undefined, fallback: number): number {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
 }
 
+function readCsv(value: string | undefined): string[] {
+  if (!value) return [];
+
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter((item) => item.length > 0);
+}
+
 export function loadConfig(): AppConfig {
   return {
     port: Number(process.env.PORT ?? 3000),
     nodeEnv: process.env.NODE_ENV ?? "development",
     groupAutomationEnabled: readBoolean(process.env.GROUP_AUTOMATION_ENABLED, true),
     groupProvider: (process.env.GROUP_PROVIDER as AppConfig["groupProvider"]) ?? "baileys",
+    groupAllowlist: readCsv(process.env.GROUP_ALLOWLIST),
+    groupRateLimitPerGroupPerMinute: readNumber(
+      process.env.GROUP_RATE_LIMIT_PER_GROUP_PER_MINUTE,
+      20
+    ),
+    groupRateLimitGlobalPerMinute: readNumber(process.env.GROUP_RATE_LIMIT_GLOBAL_PER_MINUTE, 100),
+    baileysSessionPath: process.env.BAILEYS_SESSION_PATH ?? ".baileys-session",
     waCloudApiBaseUrl: process.env.WA_CLOUD_API_BASE_URL ?? "https://graph.facebook.com",
     waCloudApiVersion: process.env.WA_CLOUD_API_VERSION ?? "v22.0",
     waCloudPhoneNumberId: process.env.WA_CLOUD_PHONE_NUMBER_ID,

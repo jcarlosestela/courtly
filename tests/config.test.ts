@@ -8,6 +8,10 @@ describe("loadConfig", () => {
     delete process.env.NODE_ENV;
     delete process.env.GROUP_AUTOMATION_ENABLED;
     delete process.env.GROUP_PROVIDER;
+    delete process.env.GROUP_ALLOWLIST;
+    delete process.env.GROUP_RATE_LIMIT_PER_GROUP_PER_MINUTE;
+    delete process.env.GROUP_RATE_LIMIT_GLOBAL_PER_MINUTE;
+    delete process.env.BAILEYS_SESSION_PATH;
     delete process.env.WA_CLOUD_API_BASE_URL;
     delete process.env.WA_CLOUD_API_VERSION;
     delete process.env.WA_CLOUD_PHONE_NUMBER_ID;
@@ -21,6 +25,10 @@ describe("loadConfig", () => {
     expect(config.nodeEnv).toBe("development");
     expect(config.groupAutomationEnabled).toBe(true);
     expect(config.groupProvider).toBe("baileys");
+    expect(config.groupAllowlist).toEqual([]);
+    expect(config.groupRateLimitPerGroupPerMinute).toBe(20);
+    expect(config.groupRateLimitGlobalPerMinute).toBe(100);
+    expect(config.baileysSessionPath).toBe(".baileys-session");
     expect(config.waCloudApiBaseUrl).toBe("https://graph.facebook.com");
     expect(config.waCloudApiVersion).toBe("v22.0");
     expect(config.directIdempotencyTtlSeconds).toBe(86400);
@@ -33,6 +41,10 @@ describe("loadConfig", () => {
     process.env.NODE_ENV = "test";
     process.env.GROUP_AUTOMATION_ENABLED = "false";
     process.env.GROUP_PROVIDER = "manual";
+    process.env.GROUP_ALLOWLIST = "120363043210@g.us, 120111111111@g.us";
+    process.env.GROUP_RATE_LIMIT_PER_GROUP_PER_MINUTE = "9";
+    process.env.GROUP_RATE_LIMIT_GLOBAL_PER_MINUTE = "40";
+    process.env.BAILEYS_SESSION_PATH = ".sessions/baileys";
     process.env.WA_CLOUD_API_BASE_URL = "https://graph.facebook.com";
     process.env.WA_CLOUD_API_VERSION = "v23.0";
     process.env.WA_CLOUD_PHONE_NUMBER_ID = "12345";
@@ -46,6 +58,10 @@ describe("loadConfig", () => {
     expect(config.nodeEnv).toBe("test");
     expect(config.groupAutomationEnabled).toBe(false);
     expect(config.groupProvider).toBe("manual");
+    expect(config.groupAllowlist).toEqual(["120363043210@g.us", "120111111111@g.us"]);
+    expect(config.groupRateLimitPerGroupPerMinute).toBe(9);
+    expect(config.groupRateLimitGlobalPerMinute).toBe(40);
+    expect(config.baileysSessionPath).toBe(".sessions/baileys");
     expect(config.waCloudApiVersion).toBe("v23.0");
     expect(config.waCloudPhoneNumberId).toBe("12345");
     expect(config.waCloudAccessToken).toBe("token");
