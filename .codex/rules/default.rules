@@ -54,7 +54,7 @@ prefix_rule(
     pattern=["npm", "audit"],
     decision="allow",
     justification="Allow dependency vulnerability checks.",
-    match=["npm audit --audit-level=high"],
+    match=["npm audit"],
 )
 
 # ---------------------------
