@@ -54,7 +54,7 @@ prefix_rule(
     pattern=["npm", "audit"],
     decision="allow",
     justification="Allow dependency vulnerability checks.",
-    match=["npm audit"],
+    match=["npm audit", "npm audit --json"],
 )
 
 # ---------------------------
@@ -95,6 +95,16 @@ prefix_rule(
 )
 
 prefix_rule(
+    pattern=["gh", "pr", ["list", "view", "create"]],
+    decision="allow",
+    justification="Allow PR listing/view/creation for auto-fix workflow.",
+    match=[
+        "gh pr list --state open --head codex/fix-npm-audit-foo",
+        "gh pr create --base main --head codex/fix-npm-audit-foo --title \"fix: ...\" --body-file /tmp/pr.md",
+    ],
+)
+
+prefix_rule(
     pattern=["gh", "label", "list"],
     decision="allow",
     justification="Allow checking existing labels.",
@@ -105,10 +115,52 @@ prefix_rule(
 # Explicit protections
 # ---------------------------
 prefix_rule(
-    pattern=["git", "push"],
+    pattern=["git", "push", "origin", "main"],
     decision="forbidden",
-    justification="Security automation must not push code changes. Use issue creation only.",
+    justification="Never push directly to main from automation. Use feature branches + PR.",
     match=["git push origin main"],
+)
+
+prefix_rule(
+    pattern=["git", "checkout", "-b"],
+    decision="allow",
+    justification="Allow creating working branches for auto-fix workflow.",
+    match=["git checkout -b codex/fix-npm-audit-foo"],
+)
+
+prefix_rule(
+    pattern=["git", "switch", "-c"],
+    decision="allow",
+    justification="Allow creating working branches for auto-fix workflow.",
+    match=["git switch -c codex/fix-npm-audit-foo"],
+)
+
+prefix_rule(
+    pattern=["git", "add"],
+    decision="allow",
+    justification="Allow staging fixes for commit.",
+    match=["git add ."],
+)
+
+prefix_rule(
+    pattern=["git", "commit", "-m"],
+    decision="allow",
+    justification="Allow creating commits for vulnerability fixes.",
+    match=["git commit -m \"fix: address vulnerability\""],
+)
+
+prefix_rule(
+    pattern=["git", "push", "-u", "origin"],
+    decision="allow",
+    justification="Allow pushing feature branches to origin for PR creation.",
+    match=["git push -u origin codex/fix-npm-audit-foo"],
+)
+
+prefix_rule(
+    pattern=["git", ["status", "diff", "log"]],
+    decision="allow",
+    justification="Allow read-only git inspection during fix workflow.",
+    match=["git status", "git diff", "git log --oneline -n 5"],
 )
 
 prefix_rule(
