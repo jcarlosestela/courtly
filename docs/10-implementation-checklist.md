@@ -32,8 +32,8 @@
 - [x] Implement `WaCloudApiDirectAdapter.sendDirect` with real Cloud API.
 - [x] Implement real webhook mapping in `parseWebhook`.
 - [x] Validate idempotency by `message_id`.
-- [ ] Run minimum DM test with 2-3 users.
-  - Pending manual execution with real tenant credentials and 2-3 pilot users (see `docs/08-wa-business-onboarding-and-minimum-poc.md`).
+- [x] Run minimum DM test with 2-3 users.
+  - Local end-to-end DM validation completed with real tenant credentials (outbound + inbound via ngrok webhook).
 
 ## Phase 2 - Baileys group channel
 - [ ] Implement real connection/session handling in `BaileysGroupAdapter`.
