@@ -1,11 +1,26 @@
 import { describe, expect, it } from "vitest";
+import { AppConfig } from "../src/config/env";
 import { buildChannelAdapters } from "../src/infrastructure/factories/channel-factory";
+
+function baseConfig(): AppConfig {
+  return {
+    port: 3000,
+    nodeEnv: "test",
+    groupAutomationEnabled: true,
+    groupProvider: "baileys",
+    waCloudApiBaseUrl: "https://graph.facebook.com",
+    waCloudApiVersion: "v22.0",
+    waCloudPhoneNumberId: "12345",
+    waCloudAccessToken: "token",
+    waCloudWebhookVerifyToken: "verify",
+    directIdempotencyTtlSeconds: 600
+  };
+}
 
 describe("buildChannelAdapters", () => {
   it("returns manual group adapter when group automation is disabled", () => {
     const adapters = buildChannelAdapters({
-      port: 3000,
-      nodeEnv: "test",
+      ...baseConfig(),
       groupAutomationEnabled: false,
       groupProvider: "baileys"
     });
@@ -17,8 +32,7 @@ describe("buildChannelAdapters", () => {
 
   it("returns Baileys adapter when enabled and provider is baileys", () => {
     const adapters = buildChannelAdapters({
-      port: 3000,
-      nodeEnv: "test",
+      ...baseConfig(),
       groupAutomationEnabled: true,
       groupProvider: "baileys"
     });
@@ -29,8 +43,7 @@ describe("buildChannelAdapters", () => {
 
   it("returns official adapter when enabled and provider is official", () => {
     const adapters = buildChannelAdapters({
-      port: 3000,
-      nodeEnv: "test",
+      ...baseConfig(),
       groupAutomationEnabled: true,
       groupProvider: "official"
     });

@@ -11,6 +11,14 @@ Run a fast, real-world validation of the hybrid model:
 - https://developers.facebook.com/docs/whatsapp/group-chat-api/
 - https://developers.facebook.com/docs/whatsapp/on-premises/compare/
 
+## Required backend config for direct webhook
+- `WA_CLOUD_API_BASE_URL` (default: `https://graph.facebook.com`)
+- `WA_CLOUD_API_VERSION` (example: `v22.0`)
+- `WA_CLOUD_PHONE_NUMBER_ID`
+- `WA_CLOUD_ACCESS_TOKEN`
+- `WA_CLOUD_WEBHOOK_VERIFY_TOKEN`
+- `DIRECT_IDEMPOTENCY_TTL_SECONDS` (default: `86400`)
+
 ## Important notes about groups/channels
 - 1:1 messaging in WhatsApp Business Platform (Cloud API) is standard.
 - If you use Baileys for groups, treat it as a risk-managed layer, not a contractual foundation.
@@ -23,6 +31,8 @@ Run a fast, real-world validation of the hybrid model:
 4. Add WhatsApp product to the app.
 5. Attach a dedicated pilot phone number.
 6. Configure webhook (URL + verify token + subscribed events).
+   - Verification endpoint: `GET /webhooks/whatsapp/direct?hub.mode=subscribe&hub.verify_token=<token>&hub.challenge=<challenge>`
+   - Event endpoint: `POST /webhooks/whatsapp/direct`
 7. Generate and store system token (avoid short-lived tokens for longer tests).
 8. Approve at least one template (for out-of-window initiation).
 9. Review messaging policy and quality status.

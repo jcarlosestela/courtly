@@ -12,7 +12,12 @@ export interface ChannelAdapters {
 }
 
 export function buildChannelAdapters(config: AppConfig): ChannelAdapters {
-  const direct = new WaCloudApiDirectAdapter();
+  const direct = new WaCloudApiDirectAdapter({
+    apiBaseUrl: config.waCloudApiBaseUrl,
+    apiVersion: config.waCloudApiVersion,
+    phoneNumberId: config.waCloudPhoneNumberId,
+    accessToken: config.waCloudAccessToken
+  });
 
   if (!config.groupAutomationEnabled) {
     return { direct, groups: new ManualGroupAdapter() };

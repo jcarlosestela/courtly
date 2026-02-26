@@ -5,11 +5,13 @@
 - p95 latency for webhook and intent parsing.
 - Number of open escalations.
 - Low-confidence ratio for critical intents.
+- Direct webhook idempotency counters (`received`, `processed`, `duplicates`).
 
 ## Alerts
 - Uptime below 99% in operating hours.
 - Consecutive webhook failures above threshold.
 - Open escalations above threshold for more than 30 minutes.
+- Repeated direct webhook verification failures (`GET /webhooks/whatsapp/direct`).
 
 ## Degraded mode
 If AI or external integration fails:

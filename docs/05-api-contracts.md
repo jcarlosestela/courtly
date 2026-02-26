@@ -1,20 +1,46 @@
 # 05 - API Contracts (Draft)
 
-## 1) WhatsApp webhook
-`POST /webhooks/whatsapp`
+## 1) WhatsApp direct webhook (Cloud API)
+`POST /webhooks/whatsapp/direct`
 
 Body example:
 ```json
 {
-  "event_id": "wamid.xxx",
-  "from": "+34600111222",
-  "type": "text",
-  "text": "Add me to the 19:00 match"
+  "entry": [
+    {
+      "changes": [
+        {
+          "value": {
+            "messages": [
+              {
+                "id": "wamid.xxx",
+                "from": "34600111222",
+                "timestamp": "1730000000",
+                "type": "text",
+                "text": { "body": "Add me to the 19:00 match" }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
 }
 ```
 
 Response:
-- `200 OK` when event is accepted and processed idempotently.
+- `200 OK` with counters:
+```json
+{"received":1,"processed":1,"duplicates":0}
+```
+- Duplicate events are returned as `200 OK` with `processed=0` and `duplicates>0`.
+
+## 1.1) WhatsApp direct webhook verification
+`GET /webhooks/whatsapp/direct?hub.mode=subscribe&hub.verify_token=...&hub.challenge=...`
+
+Response:
+- `200 OK` with `hub.challenge` as plain text when token matches.
+- `403` when verification fails.
 
 ## 2) Intent parsing
 `POST /intents/parse`
