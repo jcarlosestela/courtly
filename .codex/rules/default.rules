@@ -57,6 +57,20 @@ prefix_rule(
     match=["npm audit", "npm audit --json"],
 )
 
+prefix_rule(
+    pattern=["semgrep", "run"],
+    decision="allow",
+    justification="Allow semgrep scans for security issues.",
+    match=["semgrep run --config=auto ."],
+)
+
+prefix_rule(
+    pattern=["gitleaks", "detect"],
+    decision="allow",
+    justification="Allow gitleaks scans for secrets detection.",
+    match=["gitleaks detect --source . --report-format json --report-path /tmp/gitleaks-report.json"],
+)
+
 # ---------------------------
 # Parsing/reporting helpers
 # ---------------------------
