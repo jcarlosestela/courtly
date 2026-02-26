@@ -20,6 +20,7 @@ If `GROUP_AUTOMATION_ENABLED=false`:
 
 ## Skeleton endpoints
 - `GET /health`
+- `GET /webhooks/whatsapp/direct` (Meta webhook verification)
 - `POST /webhooks/whatsapp/direct`
 - `POST /webhooks/whatsapp/group`
 

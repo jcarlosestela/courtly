@@ -29,10 +29,11 @@
 - [x] Add documentation for Codex rules usage (`docs/13-codex-rules.md`).
 
 ## Phase 1 - Official DM channel
-- [ ] Implement `WaCloudApiDirectAdapter.sendDirect` with real Cloud API.
-- [ ] Implement real webhook mapping in `parseWebhook`.
-- [ ] Validate idempotency by `message_id`.
+- [x] Implement `WaCloudApiDirectAdapter.sendDirect` with real Cloud API.
+- [x] Implement real webhook mapping in `parseWebhook`.
+- [x] Validate idempotency by `message_id`.
 - [ ] Run minimum DM test with 2-3 users.
+  - Pending manual execution with real tenant credentials and 2-3 pilot users (see `docs/08-wa-business-onboarding-and-minimum-poc.md`).
 
 ## Phase 2 - Baileys group channel
 - [ ] Implement real connection/session handling in `BaileysGroupAdapter`.
