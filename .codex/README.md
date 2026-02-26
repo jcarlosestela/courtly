@@ -7,6 +7,7 @@ This directory stores persistent context for future agent sessions.
 2. `./.codex/IMPLEMENTATION_RULES.md`
 3. `./docs/10-implementation-checklist.md`
 4. `./docs/11-technical-skeleton.md`
+5. `./docs/13-codex-rules.md`
 
 ## Current state
 - Project is in technical skeleton phase.

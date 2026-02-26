@@ -1,0 +1,133 @@
+# Codex command policy for security automation workflows.
+# Format: Starlark prefix_rule(...) as documented in https://developers.openai.com/codex/rules/
+
+# ---------------------------
+# Git commands for main sync
+# ---------------------------
+prefix_rule(
+    pattern=["git", "fetch"],
+    decision="allow",
+    justification="Allow fetching latest refs before security checks.",
+    match=["git fetch origin"],
+    not_match=["git push origin main"],
+)
+
+prefix_rule(
+    pattern=["git", "checkout", "main"],
+    decision="allow",
+    justification="Automation runs on main branch.",
+    match=["git checkout main"],
+    not_match=["git checkout feature/security"],
+)
+
+prefix_rule(
+    pattern=["git", "pull", "--ff-only"],
+    decision="allow",
+    justification="Allow fast-forward pull only.",
+    match=["git pull --ff-only origin main"],
+    not_match=["git pull --rebase origin main"],
+)
+
+# ---------------------------
+# Project checks
+# ---------------------------
+prefix_rule(
+    pattern=["npm", "install"],
+    decision="allow",
+    justification="Install dependencies required for checks.",
+    match=["npm install"],
+)
+
+prefix_rule(
+    pattern=["npm", "run", ["verify", "security:scan", "security:audit", "lint", "typecheck", "build", "test:coverage"]],
+    decision="allow",
+    justification="Allow quality and security scripts only.",
+    match=[
+        "npm run verify",
+        "npm run security:scan",
+        "npm run security:audit",
+    ],
+    not_match=["npm run dev"],
+)
+
+prefix_rule(
+    pattern=["npm", "audit"],
+    decision="allow",
+    justification="Allow dependency vulnerability checks.",
+    match=["npm audit --audit-level=high"],
+)
+
+# ---------------------------
+# Parsing/reporting helpers
+# ---------------------------
+prefix_rule(
+    pattern=[["cat", "echo", "sed", "awk", "grep", "rg", "jq", "tee", "cut", "sort", "uniq", "wc", "tr", "xargs", "head", "tail"]],
+    decision="allow",
+    justification="Allow read-only parsing/report generation commands.",
+)
+
+prefix_rule(
+    pattern=["openssl", "dgst"],
+    decision="allow",
+    justification="Allow fingerprint generation for issue deduplication.",
+    match=["openssl dgst -sha256 /tmp/report.txt"],
+)
+
+prefix_rule(
+    pattern=[["shasum", "sha256sum"]],
+    decision="allow",
+    justification="Allow hashing report files for deduplication.",
+    match=["shasum -a 256 /tmp/report.txt"],
+)
+
+# ---------------------------
+# GitHub issue workflow
+# ---------------------------
+prefix_rule(
+    pattern=["gh", "issue", ["list", "view", "create"]],
+    decision="allow",
+    justification="Allow listing and creating vulnerability issues.",
+    match=[
+        "gh issue list --label vulnerability --state open",
+        "gh issue create --title \"[Vulnerability][High][npm-audit] Example\" --body-file /tmp/issue.md --label vulnerability",
+    ],
+    not_match=["gh issue delete 123"],
+)
+
+prefix_rule(
+    pattern=["gh", "label", "list"],
+    decision="allow",
+    justification="Allow checking existing labels.",
+    match=["gh label list"],
+)
+
+# ---------------------------
+# Explicit protections
+# ---------------------------
+prefix_rule(
+    pattern=["git", "push"],
+    decision="forbidden",
+    justification="Security automation must not push code changes. Use issue creation only.",
+    match=["git push origin main"],
+)
+
+prefix_rule(
+    pattern=["git", "reset", "--hard"],
+    decision="forbidden",
+    justification="Do not discard repository state in automation.",
+    match=["git reset --hard HEAD"],
+)
+
+prefix_rule(
+    pattern=["rm", "-rf"],
+    decision="forbidden",
+    justification="Avoid destructive recursive deletes in automation.",
+    match=["rm -rf /tmp/some-folder"],
+)
+
+# Prompt when using shell wrappers; safer to review each case.
+prefix_rule(
+    pattern=[["bash", "zsh", "sh"], ["-lc", "-c"]],
+    decision="prompt",
+    justification="Shell wrappers can hide compound commands; require explicit approval.",
+)

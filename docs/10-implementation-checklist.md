@@ -24,6 +24,10 @@
 - [x] Add quality/security documentation (`docs/12-quality-and-security.md`).
 - [x] Validate end-to-end verification pipeline (`npm run verify`).
 
+## Phase 0.2 - Codex automation policy
+- [x] Add Codex rules file for automation command control (`codex/rules/default.rules`).
+- [x] Add documentation for Codex rules usage (`docs/13-codex-rules.md`).
+
 ## Phase 1 - Official DM channel
 - [ ] Implement `WaCloudApiDirectAdapter.sendDirect` with real Cloud API.
 - [ ] Implement real webhook mapping in `parseWebhook`.
